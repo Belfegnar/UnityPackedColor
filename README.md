@@ -1,5 +1,7 @@
 # UnityPackColor
 
+![Example](https://habrastorage.org/files/5c7/5dd/c41/5c75ddc4127b4531bcf679867f5cc5fd.jpg)
+
 Packer for already packed textures at unity game engine. You can download it
 as archive and unpack to new unity project or connect it as git submodule.
 
