@@ -48,8 +48,9 @@ Shader "LeopotamGroup/PackedColor/UnlitTransparent" {
 
         fixed4 frag (v2f i) : SV_Target {
             fixed4 c = tex2D (_MainTex, i.uv);
-            c.rgb = YCoCgToRgb (dot (tex2D (_GSTex, i.uv), _GSMask), c.rg);
-            c.a = dot (tex2D (_GSTex, i.uv), _AlphaMask);
+            fixed4 gs = tex2D (_GSTex, i.uv);
+            c.rgb = YCoCgToRgb (dot (gs, _GSMask), c.rg);
+            c.a = dot (gs, _AlphaMask);
             return c;
         }
         ENDCG
