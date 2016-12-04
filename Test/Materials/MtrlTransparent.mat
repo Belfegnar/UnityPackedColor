@@ -54,7 +54,7 @@ Material:
     - first:
         name: _GSTex
       second:
-        m_Texture: {fileID: 2800000, guid: 32e16a54f7ecbef42922a20a57d74395, type: 3}
+        m_Texture: {fileID: 2800000, guid: 86db299cbeec640b892cd0673cecfaee, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -66,7 +66,7 @@ Material:
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: d161f6fa048f6f94cbb17732e953e20c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4e76f35c368224b34a13994c24e4151e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -139,7 +139,7 @@ Material:
     m_Colors:
     - first:
         name: _AlphaMask
-      second: {r: 0, g: 1, b: 0, a: 0}
+      second: {r: 0, g: 0, b: 1, a: 0}
     - first:
         name: _Color
       second: {r: 1, g: 1, b: 1, a: 1}
@@ -148,4 +148,4 @@ Material:
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _GSMask
-      second: {r: 0, g: 1, b: 0, a: 0}
+      second: {r: 0, g: 0, b: 1, a: 0}

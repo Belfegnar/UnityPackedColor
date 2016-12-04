@@ -52,7 +52,6 @@ Shader "LeopotamGroup/PackedColor/UnlitOpaque (Good Quality)" {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma fragmentoption ARB_precision_hint_fastest
             ENDCG
         }
     }

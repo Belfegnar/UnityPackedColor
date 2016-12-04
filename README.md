@@ -16,7 +16,7 @@ as archive and unpack to new unity project or connect it as git submodule.
 
 * Demo scene with test content can be found at Test folder.
 
-Test image was found at http://wallpaperswide.com/japanese_garden_kyoto-wallpapers.html (2048x2048 version).
+Test images are property of Leopotam <leopotam@gmail.com>, cant be used for any purpose without his agreement.
 
 ----------------------------------------------------------------------------
 
