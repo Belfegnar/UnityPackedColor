@@ -36,8 +36,7 @@ Shader "LeopotamGroup/PackedColor/UnlitOpaque (Good Quality)" {
         }
 
         inline fixed3 YCbCrToRgb (fixed y, fixed3 cbcr) {
-            cbcr = cbcr * fixed3(1.40199995, 1, 1.77199996) - fixed3(0.700999975, 0.5, 0.88599999);
-            return cbcr.rgb + y;
+            return cbcr * fixed3(1.40199995, 1, 1.77199996) - fixed3(0.700999975, 0.5, 0.88599999) + y;
         }
 
         fixed4 frag (v2f i) : SV_Target {
@@ -53,7 +52,6 @@ Shader "LeopotamGroup/PackedColor/UnlitOpaque (Good Quality)" {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma fragmentoption ARB_precision_hint_fastest
             ENDCG
         }
     }

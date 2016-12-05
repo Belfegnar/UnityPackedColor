@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MtrlOpaqueR
-  m_Shader: {fileID: 4800000, guid: eb0cc52af533ef64ca741af3d178d794, type: 3}
+  m_Shader: {fileID: 4800000, guid: 097431755c88f0c48a6a6ca21ac97248, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
@@ -54,7 +54,7 @@ Material:
     - first:
         name: _GSTex
       second:
-        m_Texture: {fileID: 2800000, guid: 32e16a54f7ecbef42922a20a57d74395, type: 3}
+        m_Texture: {fileID: 2800000, guid: 86db299cbeec640b892cd0673cecfaee, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -66,7 +66,7 @@ Material:
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: 0493f0edce32fae49bb82a15332c1d0b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2eef9db469ddb491eace6c0f1ec19dd0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
