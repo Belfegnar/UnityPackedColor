@@ -71,7 +71,9 @@ namespace LeopotamGroup.PackedColor.UnityEditors {
 
         PackedColorType _colorType = PackedColorType.YCbCr;
 
-        DitheringType _ditheringType = DitheringType.FloydSteinberg;
+        DitheringType _imgDitheringType = DitheringType.None;
+
+        DitheringType _gsDitheringType = DitheringType.FloydSteinberg;
 
         void OnEnable () {
             titleContent.text = Title;
@@ -79,13 +81,14 @@ namespace LeopotamGroup.PackedColor.UnityEditors {
 
         void OnGUI () {
             _colorType = (PackedColorType) EditorGUILayout.Popup ("Packing type", (int) _colorType, _packingTypeNames);
-            _ditheringType = (DitheringType) EditorGUILayout.EnumPopup ("Dithering", _ditheringType);
+            _imgDitheringType = (DitheringType) EditorGUILayout.EnumPopup ("Preprocess dithering", _imgDitheringType);
+            _gsDitheringType = (DitheringType) EditorGUILayout.EnumPopup ("Grayscale dithering", _gsDitheringType);
             _sources[0] = EditorGUILayout.ObjectField ("Texture (R)", _sources[0], typeof (Texture2D), false) as Texture2D;
             _sources[1] = EditorGUILayout.ObjectField ("Texture (G)", _sources[1], typeof (Texture2D), false) as Texture2D;
             _sources[2] = EditorGUILayout.ObjectField ("Texture (B)", _sources[2], typeof (Texture2D), false) as Texture2D;
 
             if (GUILayout.Button ("Process")) {
-                var res = Process (_sources, _colorType, _ditheringType);
+                var res = Process (_sources, _colorType, _imgDitheringType, _gsDitheringType);
                 EditorUtility.DisplayDialog (Title, res ?? "Success", "Close");
             }
         }
@@ -144,11 +147,11 @@ namespace LeopotamGroup.PackedColor.UnityEditors {
             }
         }
 
-        public static string Process (Texture2D[] sources, PackedColorType colorType, DitheringType ditheringType) {
-            return Process (null, sources, colorType, ditheringType);
+        public static string Process (Texture2D[] sources, PackedColorType colorType, DitheringType imgDitheringType, DitheringType gsDitheringType) {
+            return Process (null, sources, colorType, imgDitheringType, gsDitheringType);
         }
 
-        public static string Process (string path, Texture2D[] sources, PackedColorType colorType, DitheringType ditheringType) {
+        public static string Process (string path, Texture2D[] sources, PackedColorType colorType, DitheringType imgDitheringType, DitheringType gsDitheringType) {
             var width = -1;
             var height = -1;
             TextureImporter importer;
@@ -198,6 +201,7 @@ namespace LeopotamGroup.PackedColor.UnityEditors {
             for (var channel = 0; channel < 3; channel++) {
                 if (sources[channel] != null) {
                     colData = sources[channel].GetPixels ();
+                    ProcessDithering (colData, width, height, imgDitheringType);
                     var invDataLength = 1 / (float) colData.Length;
                     for (int i = 0, iMax = colData.Length; i < iMax; i++) {
                         if (i % 1000 == 0) {
@@ -230,7 +234,7 @@ namespace LeopotamGroup.PackedColor.UnityEditors {
                 }
             }
 
-            ProcessDithering (gsData, width, height, ditheringType);
+            ProcessDithering (gsData, width, height, gsDitheringType);
 
             try {
                 fileName = AssetDatabase.GenerateUniqueAssetPath (Path.Combine (path, string.Format ("{0}.gs.png", gsName)));
