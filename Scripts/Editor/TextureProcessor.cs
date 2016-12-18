@@ -1,11 +1,12 @@
-﻿//-------------------------------------------------------
+﻿
+// -------------------------------------------------------
 // Copyright (c) Leopotam <leopotam@gmail.com>
 // Copyright (c) Belfegnar <belfegnarinc@gmail.com>
 // License: CC BY-NC-SA 4.0
-//-------------------------------------------------------
+// -------------------------------------------------------
 
-using System;
 using System.IO;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -19,53 +20,50 @@ namespace LeopotamGroup.PackedColor.UnityEditors {
 
         const string SelectLookupFileTitle = "Select lookup filename to save";
 
-        static readonly string[] _packingTypeNames =
-            {
-                "YCoCg (Low quality)",
-                "YCbCr (Good quality)",
-            };
+        static readonly string[] _packingTypeNames = {
+            "YCoCg (Low quality)",
+            "YCbCr (Good quality)",
+        };
 
-        static readonly float[][][] _ditheringCores =
-            {
-                // Floyd-Steinberg
-                new float[][]
-                {
-                    new []{ 0 / 16f, 0 / 16f, 7 / 16f },
-                    new []{ 3 / 16f, 5 / 16f, 1 / 16f },
-                },
-                // Jarvis-Judice-Ninke
-                new float[][]
-                {
-                    new []{ 0 / 48f, 0 / 48f, 0 / 48f, 7 / 48f, 5 / 48f },
-                    new []{ 3 / 48f, 5 / 48f, 7 / 48f, 5 / 48f, 3 / 48f },
-                    new []{ 1 / 48f, 3 / 48f, 5 / 48f, 3 / 48f, 1 / 48f },
-                },
-                // Burkes
-                new float[][]
-                {
-                    new []{ 0 / 32f, 0 / 32f, 0 / 32f, 8 / 32f, 4 / 32f },
-                    new []{ 2 / 32f, 4 / 32f, 8 / 32f, 4 / 32f, 2 / 32f },
-                },
-                // Sierra-3
-                new float[][]
-                {
-                    new []{ 0 / 32f, 0 / 32f, 0 / 32f, 5 / 32f, 3 / 32f },
-                    new []{ 2 / 32f, 4 / 32f, 5 / 32f, 4 / 32f, 2 / 32f },
-                    new []{ 0 / 32f, 2 / 32f, 3 / 32f, 2 / 32f, 0 / 32f },
-                },
-                // Sierra-2
-                new float[][]
-                {
-                    new []{ 0 / 16f, 0 / 16f, 0 / 16f, 4 / 16f, 3 / 16f },
-                    new []{ 1 / 16f, 2 / 16f, 3 / 16f, 2 / 16f, 1 / 16f },
-                },
-                // Sierra-Lite
-                new float[][]
-                {
-                    new []{ 0 / 4f, 0 / 4f, 2 / 4f },
-                    new []{ 1 / 4f, 1 / 4f, 0 / 4f },
-                },
-            };
+        static readonly float[][][] _ditheringCores = {
+            // Floyd-Steinberg
+            new float[][] {
+                new[] { 0 / 16f, 0 / 16f, 7 / 16f },
+                new[] { 3 / 16f, 5 / 16f, 1 / 16f },
+            },
+
+            // Jarvis-Judice-Ninke
+            new float[][] {
+                new[] { 0 / 48f, 0 / 48f, 0 / 48f, 7 / 48f, 5 / 48f },
+                new[] { 3 / 48f, 5 / 48f, 7 / 48f, 5 / 48f, 3 / 48f },
+                new[] { 1 / 48f, 3 / 48f, 5 / 48f, 3 / 48f, 1 / 48f },
+            },
+
+            // Burkes
+            new float[][] {
+                new[] { 0 / 32f, 0 / 32f, 0 / 32f, 8 / 32f, 4 / 32f },
+                new[] { 2 / 32f, 4 / 32f, 8 / 32f, 4 / 32f, 2 / 32f },
+            },
+
+            // Sierra-3
+            new float[][] {
+                new[] { 0 / 32f, 0 / 32f, 0 / 32f, 5 / 32f, 3 / 32f },
+                new[] { 2 / 32f, 4 / 32f, 5 / 32f, 4 / 32f, 2 / 32f },
+                new[] { 0 / 32f, 2 / 32f, 3 / 32f, 2 / 32f, 0 / 32f },
+            },
+
+            // Sierra-2
+            new float[][] {
+                new[] { 0 / 16f, 0 / 16f, 0 / 16f, 4 / 16f, 3 / 16f },
+                new[] { 1 / 16f, 2 / 16f, 3 / 16f, 2 / 16f, 1 / 16f },
+            },
+
+            // Sierra-Lite
+            new float[][] {
+                new[] { 0 / 4f, 0 / 4f, 2 / 4f },
+                new[] { 1 / 4f, 1 / 4f, 0 / 4f },
+            },
+        };
 
         readonly Texture2D[] _sources = new Texture2D[3];
 
@@ -147,11 +145,13 @@ namespace LeopotamGroup.PackedColor.UnityEditors {
             }
         }
 
-        public static string Process (Texture2D[] sources, PackedColorType colorType, DitheringType imgDitheringType, DitheringType gsDitheringType) {
+        public static string Process (Texture2D[] sources, PackedColorType colorType,
+                                      DitheringType imgDitheringType, DitheringType gsDitheringType) {
             return Process (null, sources, colorType, imgDitheringType, gsDitheringType);
         }
 
-        public static string Process (string path, Texture2D[] sources, PackedColorType colorType, DitheringType imgDitheringType, DitheringType gsDitheringType) {
+        public static string Process (string path, Texture2D[] sources, PackedColorType colorType,
+                                      DitheringType imgDitheringType, DitheringType gsDitheringType) {
             var width = -1;
             var height = -1;
             TextureImporter importer;
@@ -205,7 +205,9 @@ namespace LeopotamGroup.PackedColor.UnityEditors {
                     var invDataLength = 1 / (float) colData.Length;
                     for (int i = 0, iMax = colData.Length; i < iMax; i++) {
                         if (i % 1000 == 0) {
-                            EditorUtility.DisplayProgressBar (Title, string.Format ("Processing {0}...", sources[channel].name), i * invDataLength);
+                            EditorUtility.DisplayProgressBar (Title,
+                                                              string.Format ("Processing {0}...", sources[channel].name),
+                                                              i * invDataLength);
                         }
                         c = colData[i];
                         if (colorType == PackedColorType.YCoCg) {
@@ -213,9 +215,13 @@ namespace LeopotamGroup.PackedColor.UnityEditors {
                             colData[i] = new Color (0.5f * c.r - 0.5f * c.b + 0.5f, -0.25f * c.r + 0.5f * c.g - 0.25f * c.b + 0.5f, 0f);
                             colData[i].b = 1.0f - colData[i].r;
                         } else {
-                            gs = 0.299f * c.r + 0.587f * c.g + 0.114f * c.b;
-                            colData[i] = new Color (-.168736f * c.r - .331264f * c.g + 0.5f * c.b + 0.5f, 0.5f * c.r - 0.418688f * c.g - 0.081312f * c.b + 0.5f, 0f);
-                            colData[i].b = -0.2989548f * c.r + 0.412898048f * c.g - 0.113943232f * c.b + 0.5f; // Without it dx9 will add 2 alu wtf??
+                            // gs = 0.299f * c.r + 0.587f * c.g + 0.114f * c.b;
+                            gs = 0.2126f * c.r + 0.7152f * c.g + 0.0722f * c.b;
+                            colData[i] = new Color (-.168736f * c.r - .331264f * c.g + 0.5f * c.b + 0.5f,
+                                                    0.5f * c.r - 0.418688f * c.g - 0.081312f * c.b + 0.5f, 0f);
+
+                            // Without it dx9 will add 2 alu wtf??
+                            colData[i].b = -0.2989548f * c.r + 0.412898048f * c.g - 0.113943232f * c.b + 0.5f;
                         }
                         gsData[i][channel] = gs;
                     }
@@ -223,7 +229,8 @@ namespace LeopotamGroup.PackedColor.UnityEditors {
                     EditorUtility.ClearProgressBar ();
 
                     try {
-                        fileName = AssetDatabase.GenerateUniqueAssetPath (Path.Combine (path, string.Format ("{0}.col.png", sources[channel].name)));
+                        fileName = AssetDatabase.GenerateUniqueAssetPath (
+                            Path.Combine (path, string.Format ("{0}.col.png", sources[channel].name)));
                         tex.SetPixels (colData);
                         File.WriteAllBytes (fileName, tex.EncodeToPNG ());
                     } catch (Exception ex) {
