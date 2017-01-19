@@ -23,6 +23,7 @@ Test images are property of Leopotam <leopotam@gmail.com>, cant be used for any 
 ## LICENSE
 
 Copyright (c) Leopotam <leopotam@gmail.com>
+
 Copyright (c) Belfegnar <belfegnarinc@gmail.com>
 
 The software released under the terms of the MIT license. Enjoy.
