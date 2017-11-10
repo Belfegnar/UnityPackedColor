@@ -2,7 +2,7 @@
 // -------------------------------------------------------
 // Copyright (c) Leopotam <leopotam@gmail.com>
 // Copyright (c) Belfegnar <belfegnarinc@gmail.com>
-// License: CC BY-NC-SA 4.0
+// License: MIT
 // -------------------------------------------------------
 
 using System.IO;
